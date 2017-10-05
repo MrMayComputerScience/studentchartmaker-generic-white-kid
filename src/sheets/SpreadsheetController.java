@@ -23,10 +23,15 @@ public class SpreadsheetController {
         PrinterJob pj = PrinterJob.createPrinterJob();
         pj.setPrinter(printer);
         Stage popup = new Stage();
-        pj.showPageSetupDialog(popup);
-        popup.show();
-        pj.showPrintDialog(popup);
-        pj.printPage(pane);
+        boolean boolContinue = false;
+        boolContinue = pj.showPageSetupDialog(popup);
+        if(boolContinue){
+            popup.requestFocus();
+            boolContinue = pj.showPrintDialog(popup);
+            if(boolContinue){
+                pj.printPage(pane);
+            }
+        }
         pj.endJob();
     }
 }
