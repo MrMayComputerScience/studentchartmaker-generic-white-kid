@@ -11,6 +11,9 @@ import javafx.stage.Window;
 public class SpreadsheetController {
     @FXML private GridPane pane;
     @FXML public void initialize(){
+
+    }
+    public void print(){
         Printer printer = null;
         for(Printer p : Printer.getAllPrinters()){
             System.out.println(p.getName());
@@ -21,10 +24,10 @@ public class SpreadsheetController {
         pj.setPrinter(printer);
         Stage popup = new Stage();
         pj.showPageSetupDialog(popup);
+        popup.show();
         pj.showPrintDialog(popup);
 
         pj.printPage(pane);
         pj.endJob();
-        Platform.exit();
     }
 }
