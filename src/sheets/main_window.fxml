@@ -18,8 +18,13 @@
                 <menus>
                     <Menu fx:id="File" text="File">
                         <items>
+<<<<<<< HEAD
                             <MenuItem fx:id="filePick" text="Select Config File"></MenuItem>
                             <MenuItem fx:id="saveToPDF" text="Save to PDF" onAction="#printSpreadsheet"></MenuItem>
+=======
+                            <MenuItem fx:id="filePick" text="Select Config File" onAction="#readFile"></MenuItem>
+                            <MenuItem fx:id="saveToPDF" text="Save to PDF"></MenuItem>
+>>>>>>> ba30c0496fa61abd0ccd28ae98979feb3b4c4700
                             <MenuItem fx:id="options" text="Print Options"></MenuItem>
                         </items>
                     </Menu>
