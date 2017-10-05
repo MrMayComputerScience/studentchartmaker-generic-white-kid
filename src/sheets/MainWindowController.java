@@ -1,4 +1,4 @@
-package sample;
+package sheets;
 
 public class MainWindowController {
 }
