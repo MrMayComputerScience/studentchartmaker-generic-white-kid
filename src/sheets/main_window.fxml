@@ -16,7 +16,7 @@
                 <menus>
                     <Menu fx:id="File" text="File">
                         <items>
-                            <MenuItem fx:id="filePick" text="Select Config File"></MenuItem>
+                            <MenuItem fx:id="filePick" text="Select Config File" onAction="#readFile"></MenuItem>
                             <MenuItem fx:id="saveToPDF" text="Save to PDF"></MenuItem>
                             <MenuItem fx:id="options" text="Print Options"></MenuItem>
                         </items>
