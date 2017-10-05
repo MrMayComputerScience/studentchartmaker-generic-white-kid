@@ -11,6 +11,7 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sheets.MainWindowController"
             prefHeight="400.0" prefWidth="600.0">
+
     <children>
         <VBox fx:id="outside">
             <MenuBar fx:id="menu">
@@ -27,6 +28,5 @@
             <TableView fx:id="view"></TableView>
         </VBox>
     </children>
-
 
 </AnchorPane>
