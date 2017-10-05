@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class MainWindowController {
     @FXML
@@ -13,6 +14,13 @@ public class MainWindowController {
     @FXML
     public void printSpreadsheet() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
+        try{
+            loader.load();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
         SpreadsheetController controller = loader.getController();
         controller.print();
     }

@@ -26,7 +26,6 @@ public class SpreadsheetController {
         pj.showPageSetupDialog(popup);
         popup.show();
         pj.showPrintDialog(popup);
-
         pj.printPage(pane);
         pj.endJob();
     }
