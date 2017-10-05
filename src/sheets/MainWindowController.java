@@ -9,8 +9,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class MainWindowController {
-    @FXML
-    private String fileName;
+    @FXML private String fileName;
+    @FXML private TextField fileField;
 
     @FXML
     public void printSpreadsheet() {
@@ -19,19 +19,6 @@ public class MainWindowController {
         controller.print();
     }
 
-    public void readFile() {
-        try {
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bf = new BufferedReader(fileReader);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to open file \"" + fileName + "\"");
-        }
-
-    }
-}
-
-    @FXML private String fileName;
-    @FXML private TextField fileField;
     public void readFile(String[] arr){
         String studentFile = arr[0];
         String columnFile = arr[1];
