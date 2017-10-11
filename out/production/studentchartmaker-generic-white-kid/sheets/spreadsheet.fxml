@@ -15,7 +15,7 @@
     <VBox GridPane.columnIndex="0" GridPane.rowIndex="0">
         <Text text="Header" />
     </VBox>
-    <TableView>
+    <TableView fx:id="sheet">
         <columns>
             <TableColumn text="Students">
                 <cellValueFactory>

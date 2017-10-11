@@ -1,5 +1,6 @@
 package sheets;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,6 +29,14 @@ public class MainWindowController {
 
     }
     @FXML
+    public void setConfigFile(){
+        String[] fileNames = readFirstFile();
+        String[] contents = getFileContents(fileNames);
+        for(String s : contents){
+            System.out.println(s);
+        }
+    }
+    @FXML
     public void printSpreadsheet() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
         try{
@@ -48,7 +57,7 @@ public class MainWindowController {
         }
         return contents;
     }
-    public String readFileHelper(String fileName){
+    private String readFileHelper(String fileName){
         String contents = "";
         File file = new File(fileName);
         try(FileReader fr = new FileReader(file);
@@ -70,34 +79,35 @@ public class MainWindowController {
         String headerFile;
         List<String> list = new LinkedList<String>();
         String[] fileArray = new String[3];
-        //TODO: Add file chooser
         FileChooser chooser = new FileChooser();
         chooser.setTitle("");
         File file = chooser.showOpenDialog(outside.getScene().getWindow());
-        fileName = file.getName();
-        if(fileName.length() <1){
+        if(file == null){
             System.out.println("please enter a valid file name");
+            Platform.exit(); //TODO REPLACE this
         }
         try{
-            FileReader fileReader = new FileReader(fileName);
+            FileReader fileReader = new FileReader(file);
             BufferedReader bf = new BufferedReader(fileReader);
+
             int count = 0;
             while((line = bf.readLine()) != null){
-                if(line.contains("Students =")){
+                line = line.toLowerCase();
+                if(line.contains("students =")){
                     studentFile = line;
                     String[] studentFileSplit = studentFile.split("= ");
                     studentFile = studentFileSplit[1];
                     fileArray[0] = studentFile;
                     count++;
                 }
-                else if(line.contains("Columns =")){
+                else if(line.contains("columns =")){
                     columnFile = line;
                     String[] columnFileSplit = columnFile.split("= ");
                     columnFile = columnFileSplit[1];
                     fileArray[1] = columnFile;
                     count++;
                 }
-                else if(line.contains("Header =")){
+                else if(line.contains("header =")){
                     headerFile = line;
                     String[] headerFileSplit = headerFile.split("= ");
                     headerFile = headerFileSplit[1];
@@ -125,6 +135,8 @@ public class MainWindowController {
         }
         if(list.size() > 0){
             list.toArray(fileArray);
+            for(String s : fileArray)
+                System.out.println(s);
         }
         return fileArray;
     }
