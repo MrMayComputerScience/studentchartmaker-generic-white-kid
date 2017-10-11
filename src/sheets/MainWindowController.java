@@ -2,16 +2,28 @@ package sheets;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.TextField;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import javafx.scene.layout.VBox;
+
+import java.io.*;
 
 public class MainWindowController {
     @FXML private String fileName;
     @FXML private TextField fileField;
+    @FXML private VBox outside;
 
+    @FXML public void initialize(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
+        try{
+            Parent node = loader.load();
+            outside.getChildren().add(node);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+    }
     @FXML
     public void printSpreadsheet() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
@@ -25,19 +37,28 @@ public class MainWindowController {
         SpreadsheetController controller = loader.getController();
         controller.print();
     }
-
-    public void readFile(String[] arr){
-        String studentFile = arr[0];
-        String columnFile = arr[1];
-        String headerFile = arr[2];
-
+    ///First value is students text, second = columns, third = header
+    public String[] getFileContents(String[] fileNameArr){
+        String[] arr = new String[3];
+        arr[0] = readFileHelper(fileNameArr[0]);
+        arr[1] = readFileHelper(fileNameArr[1]);
+        arr[2] = readFileHelper(fileNameArr[2]);
+        return arr;
     }
+    public String readFileHelper(String fileName){
+        String contents = "";
+        File file = new File(fileName);
+
+        return contents;
+    }
+    ///Returns an array where the first value is the students.txt name, second is the columns.txt, and 3rd is header.txt
     public String[] readFirstFile(){
         String line = null;
         String studentFile;
         String columnFile;
         String headerFile;
         String[] fileArray = new String[3];
+        //TODO: Add file chooser
         fileName = fileField.getText();
         if(fileName.length() <1){
             System.out.println("please enter a valid file name");
@@ -64,11 +85,14 @@ public class MainWindowController {
                     headerFile = headerFileSplit[1];
                     fileArray[2] = headerFile;
                 }
+                else{
+                    System.err.println("FILE NOT FORMATTED PROPERLY");
+                }
 
             }
         }
         catch(FileNotFoundException e){
-            System.out.println("Unable to open file \"" + fileName + "\"");
+            System.out.println("File \"" + fileName + "\" not found");
         }
         catch(IOException e){
             System.out.println("Error reading file \"" + fileName + "\"");
