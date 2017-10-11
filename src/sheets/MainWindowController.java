@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -70,7 +71,10 @@ public class MainWindowController {
         List<String> list = new LinkedList<String>();
         String[] fileArray = new String[3];
         //TODO: Add file chooser
-        fileName = fileField.getText();
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("");
+        File file = chooser.showOpenDialog(outside.getScene().getWindow());
+        fileName = file.getName();
         if(fileName.length() <1){
             System.out.println("please enter a valid file name");
         }
