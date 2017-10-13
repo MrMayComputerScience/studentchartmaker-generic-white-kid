@@ -31,7 +31,8 @@ public class MainWindowController {
         catch(IOException e){
             e.printStackTrace();
         }
-
+        SpreadsheetController sc = loader.getController();
+        
 
     }
     @FXML

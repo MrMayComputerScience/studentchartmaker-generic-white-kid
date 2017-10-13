@@ -30,7 +30,7 @@ public class SpreadsheetController {
         String[] students = new String[4];
         students[0] = "Shaulis, CP";
         students[1] = "McCully, Mason";
-        students[2] = "Mattesonasfafsafafafsaf, Trevor";
+        students[2] = "Matteson, Trevor";
         students[3] = "Gay, Gay";
 
         String header = "header";
