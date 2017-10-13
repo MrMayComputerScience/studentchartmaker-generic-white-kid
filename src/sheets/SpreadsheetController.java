@@ -37,9 +37,16 @@ public class SpreadsheetController {
             popup.requestFocus();
             boolContinue = pj.showPrintDialog(popup);
             if(boolContinue){
+                double width = pj.getJobSettings().getPageLayout().getPrintableWidth();
+                double height = pj.getJobSettings().getPageLayout().getPrintableHeight();
+                pane.resize(width, height);
+                sheet.resize(width, sheet.getHeight());
+                sheet.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
                 pj.printPage(pane);
             }
         }
+
         pj.endJob();
+
     }
 }
