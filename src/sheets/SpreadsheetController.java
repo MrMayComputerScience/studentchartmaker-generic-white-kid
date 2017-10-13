@@ -4,12 +4,17 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class SpreadsheetController {
     @FXML private GridPane pane;
+    @FXML private TableView sheet;
+    @FXML private Text headhead;
     @FXML public void initialize(){
 
     }
@@ -33,5 +38,17 @@ public class SpreadsheetController {
             }
         }
         pj.endJob();
+    }
+    public void createColumns(int x)
+    {
+        for(int i = 0; i < x; i++)
+        {
+            sheet.getColumns().add(new TableColumn());
+        }
+    }
+
+    public void createHeader(String header)
+    {
+        headhead.setText(header);
     }
 }

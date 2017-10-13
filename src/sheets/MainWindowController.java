@@ -3,9 +3,13 @@ package sheets;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+
 
 import java.io.*;
 import java.util.LinkedList;
@@ -15,6 +19,7 @@ public class MainWindowController {
     @FXML private String fileName;
     @FXML private TextField fileField;
     @FXML private VBox outside;
+
 
     @FXML public void initialize(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
@@ -40,6 +45,9 @@ public class MainWindowController {
         SpreadsheetController controller = loader.getController();
         controller.print();
     }
+
+
+
     ///Order of values is always students, columns, header
     public String[] getFileContents(String[] fileNameArr){
         String[] contents = new String[fileNameArr.length];
