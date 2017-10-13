@@ -18,9 +18,23 @@ public class SpreadsheetController {
     @FXML private TableView sheet;
     @FXML public void initialize(){
         //FOR EXAMPLE
-        sheet.getColumns().add(new TableColumn("MASADSA"));
-        sheet.getItems().add(new Text("fdsfsdaf"));
+        
     }
+    public void createColumns(String[] columns){
+        for(int i = 0; i < columns.length; i++){
+            sheet.getColumns().add(new TableColumn(columns[i]));
+        }
+
+    }
+
+    public void createStudents(String[] students){
+        for(int i = 0; i <students.length; i++){
+            String[] temp = students[i].split(",");
+            String student = temp[1] + temp[0];
+            sheet.getItems().add(student);
+        }
+    }
+
     public void print(){
         Printer printer = null;
         for(Printer p : Printer.getAllPrinters()){

@@ -29,7 +29,7 @@ public class MainWindowController {
             e.printStackTrace();
         }
 
-    @FXML private TableView sheet;
+
     }
     @FXML
     public void setConfigFile(){
@@ -51,20 +51,6 @@ public class MainWindowController {
 
         SpreadsheetController controller = loader.getController();
         controller.print();
-    }
-    public void createColumns(String[] columns){
-        for(int i = 0; i < columns.length; i++){
-            sheet.getColumns().add(new TableColumn(columns[i]));
-        }
-
-    }
-
-    public void createStudents(String[] students){
-        for(int i = 0; i <students.length; i++){
-            String[] temp = students[i].split(",");
-            String student = temp[1] + temp[0];
-            sheet.getItems().add(student);
-        }
     }
 
     ///Order of values is always students, columns, header
