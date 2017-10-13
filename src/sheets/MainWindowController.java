@@ -2,6 +2,8 @@ package sheets;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,19 +14,27 @@ public class MainWindowController {
     @FXML private String fileName;
     @FXML private TextField fileField;
 
-    @FXML
+    @FXML private TableView sheet;
     public void printSpreadsheet() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
         SpreadsheetController controller = loader.getController();
         controller.print();
     }
-
-    public void readFile(String[] arr){
-        String studentFile = arr[0];
-        String columnFile = arr[1];
-        String headerFile = arr[2];
+    public void createColumns(String[] columns){
+        for(int i = 0; i < columns.length; i++){
+            sheet.getColumns().add(new TableColumn(columns[i]));
+        }
 
     }
+
+    public void createStudents(String[] students){
+        for(int i = 0; i <students.length; i++){
+            String[] temp = students[i].split(",");
+            String student = temp[1] + temp[0];
+            sheet.getItems().add(student);
+        }
+    }
+
     public String[] readFirstFile(){
         String line = null;
         String studentFile;
