@@ -22,26 +22,10 @@
                     <PropertyValueFactory property="text" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
         </columns>
         <items>
             <FXCollections fx:factory="observableArrayList">
-                <Text text="Mason" />
-                <Text text="CP" />
-                <Text text="Trevor" />
-                <Text text="Jonathan" />
-                <Text text="David" />
+
             </FXCollections>
         </items>
     </TableView>

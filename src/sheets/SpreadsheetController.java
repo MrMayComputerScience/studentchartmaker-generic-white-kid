@@ -16,12 +16,28 @@ import javafx.stage.Window;
 public class SpreadsheetController {
     @FXML private GridPane pane;
     @FXML private TableView sheet;
-<<<<<<< HEAD
-=======
+
     @FXML private Text headhead;
->>>>>>> origin/Trevor
+
     @FXML public void initialize(){
         //FOR EXAMPLE
+        String[] columns = new String[4];
+        columns[0]="10/1";
+        columns[1]="10/1";
+        columns[2]="10/1";
+        columns[3]="10/1";
+
+        String[] students = new String[4];
+        students[0] = "Shaulis, CP";
+        students[1] = "McCully, Mason";
+        students[2] = "Mattesonasfafsafafafsaf, Trevor";
+        students[3] = "Gay, Gay";
+
+        String header = "header";
+
+        createColumns(columns);
+        createStudents(students);
+        createHeader(header);
         
     }
     public void createColumns(String[] columns){
@@ -32,13 +48,34 @@ public class SpreadsheetController {
     }
 
     public void createStudents(String[] students){
-        for(int i = 0; i <students.length; i++){
-            String[] temp = students[i].split(",");
-            String student = temp[1] + temp[0];
-            sheet.getItems().add(student);
+        if(students.length > 0) {
+            for (int i = 0; i < students.length; i++) {
+                if (students[i].contains(",")) {
+                    String[] temp = students[i].split(" ");
+                    temp[0] = temp[0].substring(0,temp[0].length()-1);
+                    String student = temp[1] + " " + temp[0];
+                    sheet.getItems().add(new Text(student));
+                }
+                else{
+                    System.out.println("Student Names are not Formatted Correctly");
+                }
+
+
+            }
+        }
+    }
+    public void createColumns(int x)
+    {
+        for(int i = 0; i < x; i++)
+        {
+            sheet.getColumns().add(new TableColumn());
         }
     }
 
+    public void createHeader(String header)
+    {
+        headhead.setText(header);
+    }
     public void print(){
         Printer printer = null;
         for(Printer p : Printer.getAllPrinters()){
@@ -60,16 +97,5 @@ public class SpreadsheetController {
         }
         pj.endJob();
     }
-    public void createColumns(int x)
-    {
-        for(int i = 0; i < x; i++)
-        {
-            sheet.getColumns().add(new TableColumn());
-        }
-    }
 
-    public void createHeader(String header)
-    {
-        headhead.setText(header);
-    }
 }
