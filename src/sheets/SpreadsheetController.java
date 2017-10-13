@@ -16,6 +16,10 @@ import javafx.stage.Window;
 public class SpreadsheetController {
     @FXML private GridPane pane;
     @FXML private TableView sheet;
+<<<<<<< HEAD
+=======
+    @FXML private Text headhead;
+>>>>>>> origin/Trevor
     @FXML public void initialize(){
         //FOR EXAMPLE
         
@@ -55,5 +59,17 @@ public class SpreadsheetController {
             }
         }
         pj.endJob();
+    }
+    public void createColumns(int x)
+    {
+        for(int i = 0; i < x; i++)
+        {
+            sheet.getColumns().add(new TableColumn());
+        }
+    }
+
+    public void createHeader(String header)
+    {
+        headhead.setText(header);
     }
 }
