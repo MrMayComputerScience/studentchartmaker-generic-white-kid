@@ -22,9 +22,6 @@
                     <PropertyValueFactory property="text" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="10/1">
-            <TableColumn text="10/1">
-            </TableColumn>
 
         </columns>
         <items>
