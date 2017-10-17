@@ -3,9 +3,14 @@ package sheets;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.Parent;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -27,6 +32,8 @@ public class MainWindowController {
         catch(IOException e){
             e.printStackTrace();
         }
+        SpreadsheetController sc = loader.getController();
+        
 
     }
     @FXML
@@ -50,6 +57,7 @@ public class MainWindowController {
         SpreadsheetController controller = loader.getController();
         controller.print();
     }
+
     ///Order of values is always students, columns, header
     ///Each value is separated by a newline char \n
     public String[] getFileContents(String[] fileNameArr){
