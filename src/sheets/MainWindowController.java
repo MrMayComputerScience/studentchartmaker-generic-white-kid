@@ -15,6 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,40 +23,62 @@ public class MainWindowController {
     @FXML private String fileName;
     @FXML private TextField fileField;
     @FXML private VBox outside;
-
+    private List<SpreadsheetController> controllers;
     @FXML public void initialize(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
+        controllers = new ArrayList<SpreadsheetController>();
         try{
             Parent node = loader.load();
             outside.getChildren().add(node);
+            controllers.add(loader.getController());
         }
         catch(IOException e){
             e.printStackTrace();
         }
-        SpreadsheetController sc = loader.getController();
+
         
 
     }
     @FXML
     public void setConfigFile(){
         String[] fileNames = readFirstFile();
-        String[] contents = getFileContents(fileNames);
-        for(String s : contents){
-            System.out.println("(SetConfigFile)Contents: "+s);
+        String[] contents;
+        try{
+            contents = getFileContents(fileNames);
+                String[][] stu = new String[contents.length/3][0];
+                String[][] col = new String[contents.length/3][0];
+                String header = "";
+                for(int i = 0; i<contents.length; i++){
+                    if(i%3 == 0){
+                        String raw = contents[i];
+                        String[] data = raw.split("\n");
+                        stu[i/3] = data;
+                    }
+                    else if(i%3 == 1){
+                        String raw = contents[i];
+                        String[] data = raw.split("\n");
+                        col[i/3] = data;
+                    }
+                    else{
+                        header = contents[i];
+                    }
+
+                }
+            controllers.get(0).format(stu[0],col[0],header);
+            for(int i = 0; i<stu.length; i++){
+                //controllers.get(i).format(stu[i],col[i],header);
+
+            }
         }
+        catch(NullPointerException e){
+            System.out.println("This only happens when you cancel the file select");
+        }
+
+
     }
     @FXML
     public void printSpreadsheet() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
-        try{
-            loader.load();
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-
-        SpreadsheetController controller = loader.getController();
-        controller.print();
+        controllers.get(0).print();
     }
 
     ///Order of values is always students, columns, header
@@ -95,65 +118,64 @@ public class MainWindowController {
         chooser.setTitle("");
         File file = chooser.showOpenDialog(popup);
         if(file == null){
+
+          //  Platform.exit(); //TODO REPLACE this
+        }
+        if(!file.exists()){
             System.out.println("please enter a valid file name");
-            Platform.exit(); //TODO REPLACE this
         }
-        try{
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bf = new BufferedReader(fileReader);
-            String path = file.getParentFile().getPath() + "\\";
-            System.out.println("Path = "+path);
-            int count = 0;
-            while((line = bf.readLine()) != null){
-                System.out.println(line = line.toLowerCase());
-                if(line.contains("students =")){
-                    studentFile = line;
-                    String[] studentFileSplit = studentFile.split("= ");
-                    studentFile = studentFileSplit[1];
-                    fileArray[0] = path + studentFile;
-                    count++;
-                }
-                else if(line.contains("columns =")){
-                    columnFile = line;
-                    String[] columnFileSplit = columnFile.split("= ");
-                    columnFile = columnFileSplit[1];
-                    fileArray[1] = path + columnFile;
-                    count++;
-                }
-                else if(line.contains("header =")){
-                    headerFile = line;
-                    String[] headerFileSplit = headerFile.split("= ");
-                    headerFile = headerFileSplit[1];
-                    fileArray[2] = path + headerFile;
-                    count++;
-                }
-                else{
-                    System.err.println("FILE NOT FORMATTED PROPERLY");
-                }
-                if(count == 3){
-                    System.out.println("OIts 3s");
-                    for(String s : fileArray){
-                        list.add(s);
+
+            try {
+                FileReader fileReader = new FileReader(file);
+                BufferedReader bf = new BufferedReader(fileReader);
+                String path = file.getParentFile().getPath() + "\\";
+                System.out.println("Path = " + path);
+                int count = 0;
+                while ((line = bf.readLine()) != null) {
+                    System.out.println(line = line.toLowerCase());
+                    if (line.contains("students =")) {
+                        studentFile = line;
+                        String[] studentFileSplit = studentFile.split("= ");
+                        studentFile = studentFileSplit[1];
+                        fileArray[0] = path + studentFile;
+                        count++;
+                    } else if (line.contains("columns =")) {
+                        columnFile = line;
+                        String[] columnFileSplit = columnFile.split("= ");
+                        columnFile = columnFileSplit[1];
+                        fileArray[1] = path + columnFile;
+                        count++;
+                    } else if (line.contains("header =")) {
+                        headerFile = line;
+                        String[] headerFileSplit = headerFile.split("= ");
+                        headerFile = headerFileSplit[1];
+                        fileArray[2] = path + headerFile;
+                        count++;
+                    } else if(!line.trim().equals("")){
+                        System.err.println("FILE NOT FORMATTED PROPERLY");
                     }
-                    count = 0;
+                    if (count == 3) {
+                        System.out.println("OIts 3s");
+                        for (String s : fileArray) {
+                            list.add(s);
+                        }
+                        count = 0;
+                    }
+
+
                 }
-
-
-
+            } catch (FileNotFoundException e) {
+                System.out.println("File \"" + fileName + "\" not found");
+            } catch (IOException e) {
+                System.out.println("Error reading file \"" + fileName + "\"");
             }
-        }
-        catch(FileNotFoundException e){
-            System.out.println("File \"" + fileName + "\" not found");
-        }
-        catch(IOException e){
-            System.out.println("Error reading file \"" + fileName + "\"");
-        }
-        if(list.size() > 0){
-            fileArray = new String[list.size()];
-            list.toArray(fileArray);
-            for(String s : fileArray)
-                System.out.println("(readFirstFile)Filename: "+s);
-        }
+            if (list.size() > 0) {
+                fileArray = new String[list.size()];
+                list.toArray(fileArray);
+                for (String s : fileArray)
+                    System.out.println("(readFirstFile)Filename: " + s);
+            }
+
         return fileArray;
     }
 

@@ -16,29 +16,33 @@ import javafx.stage.Window;
 public class SpreadsheetController {
     @FXML private GridPane pane;
     @FXML private TableView sheet;
-
     @FXML private Text headhead;
+    private int longestLength;
 
     @FXML public void initialize(){
-        //FOR EXAMPLE
-        String[] columns = new String[4];
-        columns[0]="10/1";
-        columns[1]="10/1";
-        columns[2]="10/1";
-        columns[3]="10/1";
-
-        String[] students = new String[4];
-        students[0] = "Shaulis, CP";
-        students[1] = "McCully, Mason";
-        students[2] = "Matteson, Trevor";
-        students[3] = "Gay, Gay";
-
-        String header = "header";
-
-        createColumns(columns);
+        sheet.heightProperty().addListener((observable, old, newVal)->{
+            pane.setPrefHeight(newVal.doubleValue());
+            System.out.println("Height");
+        });
+        sheet.widthProperty().addListener((observable, old, newVal)->{
+            pane.setPrefWidth(newVal.doubleValue());
+            System.out.println("wightn");
+        });
+        sheet.setColumnResizePolicy((param -> {
+            return longestLength*20;
+        }));
+        longestLength = -1;
+    }
+    public void format(String[] students, String[] columns, String header){
         createStudents(students);
+        createColumns(columns);
         createHeader(header);
-        
+
+    }
+    public void format(String[] students, int columns, String header){
+        createStudents(students);
+        createColumns(columns);
+        createHeader(header);
     }
     public void createColumns(String[] columns){
         for(int i = 0; i < columns.length; i++){
@@ -54,6 +58,8 @@ public class SpreadsheetController {
                     String[] temp = students[i].split(" ");
                     temp[0] = temp[0].substring(0,temp[0].length()-1);
                     String student = temp[1] + " " + temp[0];
+                    if(student.length() > longestLength)
+                        longestLength = student.length();
                     sheet.getItems().add(new Text(student));
                 }
                 else{
@@ -96,7 +102,7 @@ public class SpreadsheetController {
                 double height = pj.getJobSettings().getPageLayout().getPrintableHeight();
                 pane.resize(width, height);
                 sheet.resize(width, sheet.getHeight());
-                sheet.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
                 pj.printPage(pane);
             }
         }

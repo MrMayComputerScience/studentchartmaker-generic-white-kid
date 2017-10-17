@@ -13,62 +13,21 @@
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10"
           stylesheets="styles.css" fx:id="pane">
     <VBox GridPane.columnIndex="0" GridPane.rowIndex="0">
-        <Text text="Header" />
+        <Text text="Header" fx:id="headhead"/>
     </VBox>
     <TableView fx:id="sheet" >
+        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
         <columns>
             <TableColumn text="Students">
                 <cellValueFactory>
                     <PropertyValueFactory property="text" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
 
         </columns>
         <items>
             <FXCollections fx:factory="observableArrayList">
-                <Text text="Mason" />
-                <Text text="CP" />
-                <Text text="Trevor" />
-                <Text text="Jonathan" />
-                <Text text="David" />
+
             </FXCollections>
         </items>
     </TableView>
