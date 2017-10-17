@@ -15,33 +15,18 @@
     <VBox GridPane.columnIndex="0" GridPane.rowIndex="0">
         <Text text="Header" fx:id="headhead"/>
     </VBox>
-    <TableView>
+    <TableView fx:id="sheet" >
         <columns>
             <TableColumn text="Students">
                 <cellValueFactory>
                     <PropertyValueFactory property="text" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
-            <TableColumn text="10/1">
-            </TableColumn>
+
         </columns>
         <items>
             <FXCollections fx:factory="observableArrayList">
-                <Text text="Mason" />
-                <Text text="CP" />
-                <Text text="Trevor" />
-                <Text text="Jonathan" />
-                <Text text="David" />
+
             </FXCollections>
         </items>
     </TableView>
