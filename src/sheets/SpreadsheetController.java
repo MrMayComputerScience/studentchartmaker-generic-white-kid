@@ -2,6 +2,8 @@ package sheets;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.control.TableColumn;
@@ -18,8 +20,19 @@ public class SpreadsheetController {
     @FXML private TableView sheet;
     @FXML private Text headhead;
     private int longestLength;
+    private Stage myStage;
 
     @FXML public void initialize(){
+        pane.sceneProperty().addListener((observable, oldVal, newVal)->{
+            pane.getScene().windowProperty().addListener(((observable1, oldValue, newValue) -> {
+                myStage = (Stage)newValue;
+                pane.prefWidthProperty().bind(myStage.widthProperty());
+                sheet.prefWidthProperty().bind(pane.widthProperty().subtract(5));
+                TableColumn stuCol = (TableColumn) sheet.getColumns().get(0);
+                stuCol.setPrefWidth(longestLength*18);
+            }));
+        });
+
         longestLength = -1;
     }
     public void format(String[] students, String[] columns, String header){
@@ -71,6 +84,15 @@ public class SpreadsheetController {
     {
         headhead.setText(header);
     }
+
+    private PageLayout createPageLayoutLandscape(Printer printer){
+        PageLayout makeItLandscape = printer.createPageLayout(printer.getDefaultPageLayout().getPaper(), PageOrientation.LANDSCAPE,
+                printer.getDefaultPageLayout().getLeftMargin(),
+                printer.getDefaultPageLayout().getRightMargin(),
+                printer.getDefaultPageLayout().getTopMargin(),
+                printer.getDefaultPageLayout().getBottomMargin());
+        return makeItLandscape;
+    }
     public void print(){
         Printer printer = null;
         for(Printer p : Printer.getAllPrinters()){
@@ -89,8 +111,9 @@ public class SpreadsheetController {
             if(boolContinue){
                 double width = pj.getJobSettings().getPageLayout().getPrintableWidth();
                 double height = pj.getJobSettings().getPageLayout().getPrintableHeight();
-                pane.resize(width, height);
-                sheet.resize(width, sheet.getHeight());
+                pane.prefWidth(width);
+                pane.prefHeight(height);
+
 
                 pj.printPage(pane);
             }
