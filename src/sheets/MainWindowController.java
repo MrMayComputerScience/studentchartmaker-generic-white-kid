@@ -3,6 +3,7 @@ package sheets;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.Parent;
@@ -23,13 +24,15 @@ public class MainWindowController {
     @FXML private String fileName;
     @FXML private TextField fileField;
     @FXML private VBox outside;
+    private List<Node> sheets;
     private List<SpreadsheetController> controllers;
     @FXML public void initialize(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
         controllers = new ArrayList<SpreadsheetController>();
+        sheets = new ArrayList<Node>();
         try{
             Parent node = loader.load();
-            outside.getChildren().add(node);
+            sheets.add(node);
             controllers.add(loader.getController());
         }
         catch(IOException e){
