@@ -20,17 +20,6 @@ public class SpreadsheetController {
     private int longestLength;
 
     @FXML public void initialize(){
-        sheet.heightProperty().addListener((observable, old, newVal)->{
-            pane.setPrefHeight(newVal.doubleValue());
-            System.out.println("Height");
-        });
-        sheet.widthProperty().addListener((observable, old, newVal)->{
-            pane.setPrefWidth(newVal.doubleValue());
-            System.out.println("wightn");
-        });
-        sheet.setColumnResizePolicy((param -> {
-            return longestLength*20;
-        }));
         longestLength = -1;
     }
     public void format(String[] students, String[] columns, String header){
