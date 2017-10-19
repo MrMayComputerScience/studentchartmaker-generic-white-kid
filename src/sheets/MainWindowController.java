@@ -4,11 +4,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -23,14 +24,8 @@ public class MainWindowController {
     @FXML private String fileName;
     @FXML private TextField fileField;
     @FXML private VBox outside;
-    @FXML private VBox preview;
-    @FXML private Button back;
-    @FXML private HBox buttonHolder;
-    @FXML private Button next;
     private List<Node> sheets;
     private List<SpreadsheetController> controllers;
-    int count = 0;
-
     @FXML public void initialize(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
         controllers = new ArrayList<SpreadsheetController>();
@@ -38,8 +33,11 @@ public class MainWindowController {
         try{
             Parent node = loader.load();
             sheets.add(node);
+<<<<<<< HEAD
             outside.getChildren().add(node);
             preview.getChildren().add(node);
+=======
+>>>>>>> parent of 3e43006... added scroll buttons
             controllers.add(loader.getController());
         }
         catch(IOException e){
@@ -48,37 +46,6 @@ public class MainWindowController {
 
         
 
-    }
-    public void scroll(){
-        back = new Button("<- Back");
-        next = new Button("Next ->");
-
-        if(sheets.size() > 0){
-            buttonHolder.getChildren().add(back);
-            buttonHolder.getChildren().add(next);
-        }
-        back.setOnAction((event) -> {
-            if(count > 0){
-                decCount();
-                preview.getChildren().remove(1);
-                preview.getChildren().add(sheets.get(count));
-            }
-        });
-
-        next.setOnAction((Event ->{
-            if(count < sheets.size()-1){
-                incCount();
-                preview.getChildren().remove(1);
-                preview.getChildren().add(sheets.get(count));
-            }
-
-        }));
-    }
-    public void incCount(){
-        count++;
-    }
-    public void decCount(){
-        count--;
     }
     @FXML
     public void setConfigFile(){
@@ -106,9 +73,8 @@ public class MainWindowController {
 
                 }
             controllers.get(0).format(stu[0],col[0],header);
-            scroll();
             for(int i = 0; i<stu.length; i++){
-               // controllers.get(i).format(stu[i],col[i],header);
+                //controllers.get(i).format(stu[i],col[i],header);
 
             }
         }
