@@ -96,7 +96,7 @@ public class MainWindowController {
         File file = chooser.showOpenDialog(popup);
         if(file == null){
             System.out.println("please enter a valid file name");
-            Platform.exit(); //TODO REPLACE this
+            //Platform.exit(); //TODO REPLACE this
         }
         try{
             FileReader fileReader = new FileReader(file);
