@@ -16,6 +16,7 @@
         <Text text="Header" fx:id="headhead"/>
     </VBox>
     <TableView fx:id="sheet" >
+        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
         <columns>
             <TableColumn text="Students">
                 <cellValueFactory>

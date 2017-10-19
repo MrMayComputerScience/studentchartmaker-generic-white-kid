@@ -106,21 +106,21 @@ public class MainWindowController {
             int count = 0;
             while((line = bf.readLine()) != null){
                 System.out.println(line = line.toLowerCase());
-                if(line.contains("students =")){
+                if(line.toLowerCase().contains("students =")){
                     studentFile = line;
                     String[] studentFileSplit = studentFile.split("= ");
                     studentFile = studentFileSplit[1];
                     fileArray[0] = path + studentFile;
                     count++;
                 }
-                else if(line.contains("columns =")){
+                else if(line.toLowerCase().contains("columns =")){
                     columnFile = line;
                     String[] columnFileSplit = columnFile.split("= ");
                     columnFile = columnFileSplit[1];
                     fileArray[1] = path + columnFile;
                     count++;
                 }
-                else if(line.contains("header =")){
+                else if(line.toLowerCase().contains("header =")){
                     headerFile = line;
                     String[] headerFileSplit = headerFile.split("= ");
                     headerFile = headerFileSplit[1];
