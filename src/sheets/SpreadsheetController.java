@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.util.Arrays;
 
 
 public class SpreadsheetController {
@@ -57,6 +58,7 @@ public class SpreadsheetController {
         if(students.length > 0) {
             for (int i = 0; i < students.length; i++) {
                 if (students[i].contains(",")) {
+                    //Arrays.sort(students);
                     String[] temp = students[i].split(" ");
                     temp[0] = temp[0].substring(0,temp[0].length()-1);
                     String student = temp[1] + " " + temp[0];
