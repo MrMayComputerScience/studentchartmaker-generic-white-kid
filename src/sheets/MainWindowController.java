@@ -33,6 +33,7 @@ public class MainWindowController {
         try{
             Parent node = loader.load();
             sheets.add(node);
+            outside.getChildren().add(node);
             controllers.add(loader.getController());
         }
         catch(IOException e){
