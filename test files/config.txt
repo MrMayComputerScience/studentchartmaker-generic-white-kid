@@ -1,0 +1,7 @@
+students = students.txt
+columns = columns.txt
+header = header.txt
+
+students = students2.txt
+columns = columns2.txt
+header = header2.txt
