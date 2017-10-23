@@ -49,6 +49,16 @@ public class MainWindowController {
         String[] contents;
         try{
             contents = getFileContents(fileNames);
+            for(int i = 1; i < contents.length/3; i++){
+                try{
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
+                    sheets.add(loader.load());
+                    controllers.add(loader.getController());
+                }
+                catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
                 String[][] stu = new String[contents.length/3][0];
                 String[][] col = new String[contents.length/3][0];
                 String header = "";
@@ -68,9 +78,9 @@ public class MainWindowController {
                     }
 
                 }
-            controllers.get(0).format(stu[0],col[0],header);
+
             for(int i = 0; i<stu.length; i++){
-                //controllers.get(i).format(stu[i],col[i],header);
+                controllers.get(i).format(stu[i],col[i],header);
 
             }
         }

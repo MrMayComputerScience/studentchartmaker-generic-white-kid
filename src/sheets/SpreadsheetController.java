@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -32,6 +33,17 @@ public class SpreadsheetController {
                 pane.prefWidthProperty().bind(myStage.widthProperty());
                 sheet.prefWidthProperty().bind(pane.widthProperty().subtract(5));
             }));
+        });
+        sheet.setColumnResizePolicy((param) -> {
+            TableView.ResizeFeatures rf = (TableView.ResizeFeatures)param;
+            if(rf.getColumn() != null){
+                if(rf.getColumn().getText().equals("Students"))
+                    System.out.println("Resizing the students column");
+            }
+            else{
+                System.out.println("Auto-resize");
+            }
+            return true;
         });
         pj = PrinterJob.createPrinterJob();
         hasSetOptions = false;
@@ -96,6 +108,11 @@ public class SpreadsheetController {
                 printer.getDefaultPageLayout().getTopMargin(),
                 printer.getDefaultPageLayout().getBottomMargin());
         return makeItLandscape;
+    }
+    public int numOfPagesNeeded(){
+        int numOfPages = 1;
+        double lengthOfPageInPixels = pj.getJobSettings().getPageLayout().getPrintableHeight();
+        return numOfPages;
     }
     public void print(){
         Stage popup = new Stage();
