@@ -28,24 +28,22 @@ public class SpreadsheetController {
 
     @FXML public void initialize(){
         pane.sceneProperty().addListener((observable, oldVal, newVal)->{
-            pane.getScene().windowProperty().addListener(((observable1, oldValue, newValue) -> {
-                myStage = (Stage)newValue;
-                pane.prefWidthProperty().bind(myStage.widthProperty());
-                sheet.prefWidthProperty().bind(pane.widthProperty().subtract(5));
-            }));
-        });
-        sheet.setColumnResizePolicy((param) -> {
-            TableView.ResizeFeatures rf = (TableView.ResizeFeatures)param;
-            if(rf.getColumn() != null){
-                if(rf.getColumn().getText().equals("Students"))
-                    System.out.println("Resizing the students column");
+            if(newVal != null){
+                pane.getScene().windowProperty().addListener(((observable1, oldValue, newValue) -> {
+                    if((myStage = (Stage)newValue) != null){
+                        myStage = (Stage)newValue;
+                        pane.prefWidthProperty().bind(myStage.widthProperty());
+                        sheet.prefWidthProperty().bind(pane.widthProperty().subtract(5));
+                    }
+                }));
             }
-            else{
-                System.out.println("Auto-resize");
-            }
-            return true;
         });
+
         pj = PrinterJob.createPrinterJob();
+        for(Printer p : Printer.getAllPrinters()){
+            if(p.getName().contains("XPS"))
+                pj.setPrinter(p);
+        }
         hasSetOptions = false;
         longestLength = -1;
     }
@@ -116,8 +114,9 @@ public class SpreadsheetController {
     }
     public void print(){
         Stage popup = new Stage();
+        System.out.println("Before the printDialog, status is: "+pj.getJobStatus().toString());
         System.out.println(pj.showPrintDialog(popup));
-        System.out.println("After the printDialog");
+        System.out.println("After the printDialog, status is: "+pj.getJobStatus().toString());
         pane.prefWidthProperty().unbind();
         if(!hasSetOptions){
             pj.getJobSettings().setPageLayout(createPageLayoutLandscape(pj.getPrinter()));
@@ -131,9 +130,9 @@ public class SpreadsheetController {
             pane.setPrefHeight(pj.getJobSettings().getPageLayout().getPrintableHeight());
         }
      //   sheet.setColumnResizePolicy((param)->true);
-        TableColumn stuCol = (TableColumn)sheet.getColumns().get(0);
-        stuCol.setPrefWidth(longestLength*6);
+        System.out.println("Before the print, status is: "+pj.getJobStatus().toString());
         pj.printPage(pane);
+        System.out.println("After the print, status is: "+pj.getJobStatus().toString());
         pj.endJob();
         pane.prefWidthProperty().bind(myStage.widthProperty());
     }

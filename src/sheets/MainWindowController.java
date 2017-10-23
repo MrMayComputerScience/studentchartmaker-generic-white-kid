@@ -29,7 +29,7 @@ public class MainWindowController {
     @FXML private Button next;
     private List<Node> sheets;
     private List<SpreadsheetController> controllers;
-    int count = 0;
+    private int count = 0;
 
     @FXML public void initialize(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("spreadsheet.fxml"));
@@ -38,10 +38,9 @@ public class MainWindowController {
         try{
             Parent node = loader.load();
             sheets.add(node);
-            outside.getChildren().add(node);
-
             preview.getChildren().add(node);
             controllers.add(loader.getController());
+            scroll();
         }
         catch(IOException e){
             e.printStackTrace();
@@ -99,7 +98,7 @@ public class MainWindowController {
             }
                 String[][] stu = new String[contents.length/3][0];
                 String[][] col = new String[contents.length/3][0];
-                String header = "";
+                String[] header = new String[contents.length/3];
                 for(int i = 0; i<contents.length; i++){
                     if(i%3 == 0){
                         String raw = contents[i];
@@ -112,12 +111,12 @@ public class MainWindowController {
                         col[i/3] = data;
                     }
                     else{
-                        header = contents[i];
+                        header[i/3] = contents[i];
                     }
 
                 }
             for(int i = 0; i<stu.length; i++) {
-                controllers.get(i).format(stu[i], col[i], header);
+                controllers.get(i).format(stu[i], col[i], header[i]);
             }
         }
         catch(NullPointerException e){
@@ -128,9 +127,7 @@ public class MainWindowController {
     }
     @FXML
     public void printSpreadsheet() {
-        for(SpreadsheetController c : controllers){
-            c.print();
-        }
+        controllers.get(count).print();
     }
 
     ///Order of values is always students, columns, header
@@ -232,9 +229,7 @@ public class MainWindowController {
         return fileArray;
     }
     @FXML public void printOptions(){
-        for(SpreadsheetController c : controllers){
-            c.printOptions();
-        }
+        controllers.get(count).print();
     }
 
 }
