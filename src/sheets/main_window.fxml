@@ -21,15 +21,18 @@
 
                             <MenuItem fx:id="saveToPDF" text="Save to PDF" onAction="#printSpreadsheet"></MenuItem>
                             <MenuItem fx:id="filePick" text="Select Config File" onAction="#setConfigFile"></MenuItem>
-                            <MenuItem fx:id="options" text="Print Options"></MenuItem>
+                            <MenuItem fx:id="options" text="Print Options" onAction="#printOptions"></MenuItem>
                         </items>
                     </Menu>
                 </menus>
             </MenuBar>
+<<<<<<< HEAD
             <VBox fx:id = "preview">
                 <HBox fx:id = "buttonHolder">
                 </HBox>
             </VBox>
+=======
+>>>>>>> origin/Mason
         </VBox>
     </children>
 

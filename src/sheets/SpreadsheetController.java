@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.util.Arrays;
 
 
 public class SpreadsheetController {
@@ -21,6 +22,8 @@ public class SpreadsheetController {
     @FXML private Text headhead;
     private int longestLength;
     private Stage myStage;
+    private PrinterJob pj;
+    private boolean hasSetOptions;
 
     @FXML public void initialize(){
         pane.sceneProperty().addListener((observable, oldVal, newVal)->{
@@ -28,11 +31,10 @@ public class SpreadsheetController {
                 myStage = (Stage)newValue;
                 pane.prefWidthProperty().bind(myStage.widthProperty());
                 sheet.prefWidthProperty().bind(pane.widthProperty().subtract(5));
-                TableColumn stuCol = (TableColumn) sheet.getColumns().get(0);
-                stuCol.setPrefWidth(longestLength*18);
             }));
         });
-
+        pj = PrinterJob.createPrinterJob();
+        hasSetOptions = false;
         longestLength = -1;
     }
     public void format(String[] students, String[] columns, String header){
@@ -57,6 +59,7 @@ public class SpreadsheetController {
         if(students.length > 0) {
             for (int i = 0; i < students.length; i++) {
                 if (students[i].contains(",")) {
+                    Arrays.sort(students);
                     String[] temp = students[i].split(" ");
                     temp[0] = temp[0].substring(0,temp[0].length()-1);
                     String student = temp[1] + " " + temp[0];
@@ -94,33 +97,31 @@ public class SpreadsheetController {
         return makeItLandscape;
     }
     public void print(){
-        Printer printer = null;
-        for(Printer p : Printer.getAllPrinters()){
-            System.out.println(p.getName());
-            if(p.getName().contains("XPS"))
-                printer = p;
-        }
-        PrinterJob pj = PrinterJob.createPrinterJob();
-        pj.setPrinter(printer);
         Stage popup = new Stage();
-        boolean boolContinue = false;
-        boolContinue = pj.showPageSetupDialog(popup);
-        if(boolContinue){
-            popup.requestFocus();
-            boolContinue = pj.showPrintDialog(popup);
-            if(boolContinue){
-                double width = pj.getJobSettings().getPageLayout().getPrintableWidth();
-                double height = pj.getJobSettings().getPageLayout().getPrintableHeight();
-                pane.prefWidth(width);
-                pane.prefHeight(height);
-
-
-                pj.printPage(pane);
-            }
+        pj.showPrintDialog(popup);
+        pane.prefWidthProperty().unbind();
+        if(!hasSetOptions){
+            pj.getJobSettings().setPageLayout(createPageLayoutLandscape(pj.getPrinter()));
         }
-
+        if(pj.getJobSettings().getPageLayout().getPageOrientation() == PageOrientation.LANDSCAPE){
+            pane.setPrefWidth(pj.getJobSettings().getPageLayout().getPrintableWidth());
+            pane.setPrefHeight(pj.getJobSettings().getPageLayout().getPrintableHeight());
+        }
+        else{
+            pane.setPrefWidth(pj.getJobSettings().getPageLayout().getPrintableWidth());
+            pane.setPrefHeight(pj.getJobSettings().getPageLayout().getPrintableHeight());
+        }
+        sheet.setColumnResizePolicy((param)->true);
+        TableColumn stuCol = (TableColumn)sheet.getColumns().get(0);
+        stuCol.setPrefWidth(longestLength*6);
+        pj.printPage(pane);
         pj.endJob();
-
+        pane.prefWidthProperty().bind(myStage.widthProperty());
+    }
+    public void printOptions(){
+        Stage popup = new Stage();
+        if(pj.showPageSetupDialog(popup))
+            hasSetOptions = true;
     }
 
 }

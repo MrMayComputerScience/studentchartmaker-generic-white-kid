@@ -39,7 +39,10 @@ public class MainWindowController {
             Parent node = loader.load();
             sheets.add(node);
             outside.getChildren().add(node);
+<<<<<<< HEAD
             preview.getChildren().add(node);
+=======
+>>>>>>> origin/Mason
             controllers.add(loader.getController());
         }
         catch(IOException e){
@@ -120,7 +123,9 @@ public class MainWindowController {
     }
     @FXML
     public void printSpreadsheet() {
-        controllers.get(0).print();
+        for(SpreadsheetController c : controllers){
+            c.print();
+        }
     }
 
     ///Order of values is always students, columns, header
@@ -178,7 +183,7 @@ public class MainWindowController {
                 System.out.println("Path = " + path);
                 int count = 0;
                 while ((line = bf.readLine()) != null) {
-                    System.out.println(line = line.toLowerCase());
+                    line = line.toLowerCase();
                     if (line.contains("students =")) {
                         studentFile = line;
                         String[] studentFileSplit = studentFile.split("= ");
@@ -223,6 +228,11 @@ public class MainWindowController {
             }
 
         return fileArray;
+    }
+    @FXML public void printOptions(){
+        for(SpreadsheetController c : controllers){
+            c.printOptions();
+        }
     }
 
 }
