@@ -58,9 +58,10 @@ public class SpreadsheetController {
     public void createStudents(String[] students){
         if(students.length > 0) {
             for (int i = 0; i < students.length; i++) {
-                if (students[i].contains(",")) {
+                String line = students[i].replaceAll("\t", " ");
+                if (line.contains(",")) {
                     Arrays.sort(students);
-                    String[] temp = students[i].split(" ");
+                    String[] temp = line.split(" ");
                     temp[0] = temp[0].substring(0,temp[0].length()-1);
                     String student = temp[1] + " " + temp[0];
                     if(student.length() > longestLength)
@@ -98,7 +99,8 @@ public class SpreadsheetController {
     }
     public void print(){
         Stage popup = new Stage();
-        pj.showPrintDialog(popup);
+        System.out.println(pj.showPrintDialog(popup));
+        System.out.println("After the printDialog");
         pane.prefWidthProperty().unbind();
         if(!hasSetOptions){
             pj.getJobSettings().setPageLayout(createPageLayoutLandscape(pj.getPrinter()));
@@ -111,7 +113,7 @@ public class SpreadsheetController {
             pane.setPrefWidth(pj.getJobSettings().getPageLayout().getPrintableWidth());
             pane.setPrefHeight(pj.getJobSettings().getPageLayout().getPrintableHeight());
         }
-        sheet.setColumnResizePolicy((param)->true);
+     //   sheet.setColumnResizePolicy((param)->true);
         TableColumn stuCol = (TableColumn)sheet.getColumns().get(0);
         stuCol.setPrefWidth(longestLength*6);
         pj.printPage(pane);
