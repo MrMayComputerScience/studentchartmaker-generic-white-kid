@@ -26,6 +26,10 @@
                     </Menu>
                 </menus>
             </MenuBar>
+            <VBox fx:id = "preview">
+                <HBox fx:id = "buttonHolder">
+                </HBox>
+            </VBox>
         </VBox>
     </children>
 
