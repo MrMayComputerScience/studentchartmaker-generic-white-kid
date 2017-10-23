@@ -39,10 +39,8 @@ public class MainWindowController {
             Parent node = loader.load();
             sheets.add(node);
             outside.getChildren().add(node);
-<<<<<<< HEAD
+
             preview.getChildren().add(node);
-=======
->>>>>>> origin/Mason
             controllers.add(loader.getController());
         }
         catch(IOException e){
@@ -170,10 +168,7 @@ public class MainWindowController {
         }
         if(!file.exists()){
             System.out.println("please enter a valid file name");
-<<<<<<< HEAD
             //Platform.exit(); //TODO REPLACE this
-=======
->>>>>>> CP
         }
 
             try {

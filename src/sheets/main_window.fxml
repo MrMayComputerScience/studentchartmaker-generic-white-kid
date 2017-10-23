@@ -26,13 +26,10 @@
                     </Menu>
                 </menus>
             </MenuBar>
-<<<<<<< HEAD
             <VBox fx:id = "preview">
                 <HBox fx:id = "buttonHolder">
                 </HBox>
             </VBox>
-=======
->>>>>>> origin/Mason
         </VBox>
     </children>
 

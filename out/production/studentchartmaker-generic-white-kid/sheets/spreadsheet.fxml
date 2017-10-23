@@ -14,13 +14,9 @@
           stylesheets="@styles.css" fx:id="pane">
     <padding><Insets left="0" right="10" bottom="5" /></padding>
     <VBox GridPane.columnIndex="0" GridPane.rowIndex="0">
-<<<<<<< HEAD
         <Text text="Header" fx:id="headhead"/>
-    </VBox>
-=======
         <Text text="Header" fx:id="headhead" styleClass="thetext"/>
 
->>>>>>> CP
     <TableView fx:id="sheet" >
         <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
         <columns>
