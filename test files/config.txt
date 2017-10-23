@@ -1,5 +1,5 @@
-students = students.txt
-columns = columns.txt
+students = Project2Rows.txt
+columns = mp1datesA.txt
 header = header.txt
 
 students = students2.txt
