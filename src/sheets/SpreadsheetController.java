@@ -38,7 +38,8 @@ public class SpreadsheetController {
                 }));
             }
         });
-
+        TableUtils.setDefaultTableSkin(sheet);
+        TableUtils.fitTableToContents(sheet);
         pj = PrinterJob.createPrinterJob();
         for(Printer p : Printer.getAllPrinters()){
             if(p.getName().contains("XPS"))
