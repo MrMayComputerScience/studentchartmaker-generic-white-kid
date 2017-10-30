@@ -119,11 +119,12 @@ public class SpreadsheetController {
         System.out.println(pj.showPrintDialog(popup));
         System.out.println("After the printDialog, status is: "+pj.getJobStatus().toString());
         pane.prefWidthProperty().unbind();
+        sheet.prefWidthProperty().bind(pane.widthProperty());
         if(!hasSetOptions){
             pj.getJobSettings().setPageLayout(createPageLayoutLandscape(pj.getPrinter()));
         }
         if(pj.getJobSettings().getPageLayout().getPageOrientation() == PageOrientation.LANDSCAPE){
-            pane.setPrefWidth(pj.getJobSettings().getPageLayout().getPrintableWidth());
+            pane.setPrefWidth(pj.getJobSettings().getPageLayout().getPrintableWidth()-20);
             pane.setPrefHeight(pj.getJobSettings().getPageLayout().getPrintableHeight());
         }
         else{

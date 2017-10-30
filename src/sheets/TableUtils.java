@@ -39,6 +39,8 @@ public class TableUtils{
                     System.out.println("Skin is null? "+(tableView.getSkin() == null));
                     System.out.println("Column is null? "+(column == null));
                     columnResizeMethod.invoke(tableView.getSkin(), column, -1);
+                    if(column == tableView.getColumns().get(0))
+                        column.setPrefWidth(column.getWidth()/2);
                 }
                 catch(InvocationTargetException | IllegalAccessException | NullPointerException e){
                     System.err.println("Error formatting column with name: "+column.getText());
