@@ -17,7 +17,7 @@
         <Text text="Header" fx:id="headhead" styleClass="thetext"/>
 
     <TableView fx:id="sheet" >
-        
+
         <columns>
             <TableColumn text="Students">
                 <cellValueFactory>

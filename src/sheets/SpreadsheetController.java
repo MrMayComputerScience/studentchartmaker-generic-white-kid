@@ -38,7 +38,6 @@ public class SpreadsheetController {
                 }));
             }
         });
-        TableUtils.setDefaultTableSkin(sheet);
         TableUtils.fitTableToContents(sheet);
         pj = PrinterJob.createPrinterJob();
         for(Printer p : Printer.getAllPrinters()){
@@ -118,8 +117,8 @@ public class SpreadsheetController {
         System.out.println("Before the printDialog, status is: "+pj.getJobStatus().toString());
         System.out.println(pj.showPrintDialog(popup));
         System.out.println("After the printDialog, status is: "+pj.getJobStatus().toString());
-        pane.prefWidthProperty().unbind();
-        sheet.prefWidthProperty().bind(pane.widthProperty());
+     //   pane.prefWidthProperty().unbind();
+     //     sheet.prefWidthProperty().bind(pane.widthProperty());
         if(!hasSetOptions){
             pj.getJobSettings().setPageLayout(createPageLayoutLandscape(pj.getPrinter()));
         }
@@ -131,7 +130,8 @@ public class SpreadsheetController {
             pane.setPrefWidth(pj.getJobSettings().getPageLayout().getPrintableWidth());
             pane.setPrefHeight(pj.getJobSettings().getPageLayout().getPrintableHeight());
         }
-     //   sheet.setColumnResizePolicy((param)->true);
+
+
         System.out.println("Before the print, status is: "+pj.getJobStatus().toString());
         pj.printPage(pane);
         System.out.println("After the print, status is: "+pj.getJobStatus().toString());

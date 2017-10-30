@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="studentchartmaker-generic-white-kid:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/studentchartmaker_generic_white_kid_jar</output-path>
+    <root id="archive" name="studentchartmaker-generic-white-kid.jar">
+      <element id="module-output" name="studentchartmaker-generic-white-kid" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jsoup-1.10.3.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
