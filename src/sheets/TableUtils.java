@@ -11,6 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class TableUtils{
+
     private static Method columnResizeMethod;
     private static Method setTableSkin;
     static{
@@ -36,6 +37,7 @@ public class TableUtils{
                 TableColumn column = (TableColumn) col;
                 try{
                     System.out.println("Skin is null? "+(tableView.getSkin() == null));
+                    System.out.println("Column is null? "+(column == null));
                     columnResizeMethod.invoke(tableView.getSkin(), column, -1);
                 }
                 catch(InvocationTargetException | IllegalAccessException | NullPointerException e){
